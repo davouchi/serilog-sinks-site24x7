@@ -1,0 +1,15 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <RootNamespace>serilog_sinks_site24x7</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Serilog" Version="2.9.0" />
+    <PackageReference Include="Serilog.Sinks.File" Version="4.1.0" />
+    <PackageReference Include="Serilog.Sinks.PeriodicBatching" Version="2.3.0" />
+    <PackageReference Include="Serilog.Sinks.RollingFile" Version="3.3.0" />
+  </ItemGroup>
+
+</Project>
