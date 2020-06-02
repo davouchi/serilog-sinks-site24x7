@@ -64,7 +64,7 @@ namespace Serilog
         /// A custom <see cref="IHttpClient"/> implementation. Default value is
         /// <see cref="HttpClient"/>.
         /// </param>
-        /// <returns>Logger configuration, allowing configuration to continue.</returns>
+        /// <returns>Logger configuration, allowing configuration to continue.</returns>>
         public static LoggerConfiguration Site24x7Url(
             this LoggerSinkConfiguration sinkConfiguration,
             string requestUri,
