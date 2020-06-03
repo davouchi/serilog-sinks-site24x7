@@ -12,16 +12,16 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+using Serilog.Debugging;
+using Serilog.Events;
+using Serilog.Formatting;
+using Serilog.Sinks.PeriodicBatching;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
-using Serilog.Debugging;
-using Serilog.Events;
-using Serilog.Formatting;
-using Serilog.Sinks.PeriodicBatching;
 
 namespace Serilog.Sinks.Site24x7.Private.Sinks
 {
@@ -58,6 +58,7 @@ namespace Serilog.Sinks.Site24x7.Private.Sinks
             : base(batchPostingLimit, period, queueLimit)
         {
             this.requestUri = requestUri ?? throw new ArgumentNullException(nameof(requestUri));
+
             this.textFormatter = textFormatter ?? throw new ArgumentNullException(nameof(textFormatter));
             this.batchFormatter = batchFormatter ?? throw new ArgumentNullException(nameof(batchFormatter));
             this.httpClient = httpClient ?? throw new ArgumentNullException(nameof(httpClient));
@@ -72,6 +73,7 @@ namespace Serilog.Sinks.Site24x7.Private.Sinks
         /// </remarks>
         public HttpSink(
             string requestUri,
+
             int batchPostingLimit,
             TimeSpan period,
             ITextFormatter textFormatter,
@@ -80,6 +82,7 @@ namespace Serilog.Sinks.Site24x7.Private.Sinks
             : base(batchPostingLimit, period)
         {
             this.requestUri = requestUri ?? throw new ArgumentNullException(nameof(requestUri));
+
             this.textFormatter = textFormatter ?? throw new ArgumentNullException(nameof(textFormatter));
             this.batchFormatter = batchFormatter ?? throw new ArgumentNullException(nameof(batchFormatter));
             this.httpClient = httpClient ?? throw new ArgumentNullException(nameof(httpClient));

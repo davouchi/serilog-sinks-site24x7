@@ -69,7 +69,7 @@ namespace Serilog.Sinks.Site24x7.TextFormatters
             if (output == null) throw new ArgumentNullException(nameof(output));
 
             output.Write("{\"@t\":\"");
-            output.Write(logEvent.Timestamp.UtcDateTime.ToString("o"));
+            output.Write(logEvent.Timestamp.UtcDateTime.ToString());
 
             output.Write("\",\"@mt\":");
             JsonValueFormatter.WriteQuotedJsonString(logEvent.MessageTemplate.Text, output);
@@ -137,7 +137,7 @@ namespace Serilog.Sinks.Site24x7.TextFormatters
         {
             SelfLog.WriteLine(
                 "Event at {0} with message template {1} could not be formatted into JSON and will be dropped: {2}",
-                logEvent.Timestamp.ToString("o"),
+                logEvent.Timestamp.ToString(),
                 logEvent.MessageTemplate.Text,
                 e);
         }

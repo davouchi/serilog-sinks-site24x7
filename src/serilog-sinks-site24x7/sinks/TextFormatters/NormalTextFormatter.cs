@@ -69,7 +69,7 @@ namespace Serilog.Sinks.Site24x7.TextFormatters
             if (output == null) throw new ArgumentNullException(nameof(output));
 
             output.Write("{\"Timestamp\":\"");
-            output.Write(logEvent.Timestamp.ToString("o"));
+            output.Write(logEvent.Timestamp.ToString());
 
             output.Write("\",\"Level\":\"");
             output.Write(logEvent.Level);
@@ -174,7 +174,7 @@ namespace Serilog.Sinks.Site24x7.TextFormatters
         {
             SelfLog.WriteLine(
                 "Event at {0} with message template {1} could not be formatted into JSON and will be dropped: {2}",
-                logEvent.Timestamp.ToString("o"),
+                logEvent.Timestamp.ToString(),
                 logEvent.MessageTemplate.Text,
                 e);
         }

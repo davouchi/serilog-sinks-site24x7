@@ -68,7 +68,7 @@ namespace Serilog
         public static LoggerConfiguration Site24x7Url(
             this LoggerSinkConfiguration sinkConfiguration,
             string requestUri,
-            int batchPostingLimit = 1000,
+            int batchPostingLimit = 1,
             int? queueLimit = null,
             TimeSpan? period = null,
             ITextFormatter textFormatter = null,
@@ -79,7 +79,7 @@ namespace Serilog
             if (sinkConfiguration == null) throw new ArgumentNullException(nameof(sinkConfiguration));
 
             // Default values
-            period =  period ?? TimeSpan.FromSeconds(2);
+            period =  period ?? TimeSpan.FromMilliseconds(0.0001);
             textFormatter = textFormatter ?? new NormalRenderedTextFormatter();
             batchFormatter = batchFormatter ?? new DefaultBatchFormatter();
             httpClient = httpClient ?? new DefaultHttpClient();
@@ -90,37 +90,7 @@ namespace Serilog
 
             return sinkConfiguration.Sink(sink, restrictedToMinimumLevel);
         }
-
-        [Obsolete("Use DurableHttpUsingTimeRolledBuffers instead of this sink provider")]
-        [EditorBrowsable(EditorBrowsableState.Never)]
-        public static LoggerConfiguration DurableHttp(
-            this LoggerSinkConfiguration sinkConfiguration,
-            string requestUri,
-            string bufferPathFormat = "Buffer-{Date}.json",
-            long? bufferFileSizeLimitBytes = null,
-            bool bufferFileShared = false,
-            int? retainedBufferFileCountLimit = 31,
-            int batchPostingLimit = 1000,
-            TimeSpan? period = null,
-            ITextFormatter textFormatter = null,
-            IBatchFormatter batchFormatter = null,
-            LogEventLevel restrictedToMinimumLevel = LevelAlias.Minimum,
-            IHttpClient httpClient = null)
-        {
-            return DurableHttpUsingTimeRolledBuffers(
-                sinkConfiguration: sinkConfiguration,
-                requestUri: requestUri,
-                bufferPathFormat: bufferPathFormat,
-                bufferFileSizeLimitBytes: bufferFileSizeLimitBytes,
-                bufferFileShared: bufferFileShared,
-                retainedBufferFileCountLimit: retainedBufferFileCountLimit,
-                batchPostingLimit: batchPostingLimit,
-                period: period,
-                textFormatter: textFormatter,
-                batchFormatter: batchFormatter,
-                restrictedToMinimumLevel: restrictedToMinimumLevel,
-                httpClient: httpClient);
-        }
+       
 
         /// <summary>
         /// Adds a durable sink that sends log events using HTTP POST over the network. A durable
@@ -176,7 +146,7 @@ namespace Serilog
         /// <see cref="HttpClient"/>.
         /// </param>
         /// <returns>Logger configuration, allowing configuration to continue.</returns>
-        public static LoggerConfiguration DurableHttpUsingTimeRolledBuffers(
+        public static LoggerConfiguration Site24x7UsingTimeRolledBuffers(
             this LoggerSinkConfiguration sinkConfiguration,
             string requestUri,
             string bufferPathFormat = "Buffer-{Date}.json",
@@ -193,7 +163,7 @@ namespace Serilog
             if (sinkConfiguration == null) throw new ArgumentNullException(nameof(sinkConfiguration));
 
             // Default values
-            period = period ?? TimeSpan.FromSeconds(2);
+            period = period ?? TimeSpan.FromMilliseconds(1);
             textFormatter = textFormatter ?? new NormalRenderedTextFormatter();
             batchFormatter = batchFormatter ?? new DefaultBatchFormatter();
             httpClient = httpClient ?? new DefaultHttpClient();
@@ -269,7 +239,7 @@ namespace Serilog
         /// <see cref="HttpClient"/>.
         /// </param>
         /// <returns>Logger configuration, allowing configuration to continue.</returns>
-        public static LoggerConfiguration DurableHttpUsingFileSizeRolledBuffers(
+        public static LoggerConfiguration Site24x7UsingFileSizeRolledBuffers(
             this LoggerSinkConfiguration sinkConfiguration,
             string requestUri,
             string bufferBaseFileName = "Buffer",
@@ -286,7 +256,7 @@ namespace Serilog
             if (sinkConfiguration == null) throw new ArgumentNullException(nameof(sinkConfiguration));
 
             // Default values
-            period = period ?? TimeSpan.FromSeconds(2);
+            period = period ?? TimeSpan.FromMilliseconds(1);
             textFormatter = textFormatter ?? new NormalRenderedTextFormatter();
             batchFormatter = batchFormatter ?? new DefaultBatchFormatter();
             httpClient = httpClient ?? new DefaultHttpClient();
