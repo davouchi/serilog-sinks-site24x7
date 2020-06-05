@@ -36,5 +36,5 @@ Or Use the namespace ```[Serilog.Settings.Configuration]``` and update your apps
 
 The sink is a single line log event post using this site24x7 log pattern
 ```
-json $RequestPath$ $ParentId$ $RequestId$ $Timestamp:date:yyyy-MM-dd'T'HH:mm:ss.SSS$ $SourceContext$ $MessageTemplate$ $ActionName$ $ActionId$ $RenderedMessage$ $MachineName$ $ThreadId:number$ $TraceId$ $Environment$ $Level$ $ProcessId:number$ $SpanId$
+json  $Timestamp:date:MM/dd/yyyy HH:mm:ss.SSS$ $Environment$ $Level$ $RequestPath$$RenderedMessage$$SourceContext$ $ActionName$ $ActionId$  $MachineName$ $ThreadId:number$ $TraceId$ $ProcessId:number$ $SpanId$ $ParentId$ $RequestId$
 ```
