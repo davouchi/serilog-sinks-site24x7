@@ -21,6 +21,7 @@ Or Use the namespace ```[Serilog.Settings.Configuration]``` and update your apps
 {
   "Serilog": {
     "MinimumLevel": "Verbose",
+    "Enrich": [ "FromLogContext", "WithMachineName", "WithProcessId", "WithThreadId", "WithExceptionDetails" ],
     "WriteTo": [
       {
         "Name": "Site24x7Url",
