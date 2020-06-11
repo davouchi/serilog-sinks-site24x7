@@ -12,9 +12,6 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-using System;
-using System.ComponentModel;
-using System.Net.Http;
 using Serilog.Configuration;
 using Serilog.Events;
 using Serilog.Formatting;
@@ -23,6 +20,8 @@ using Serilog.Sinks.Site24x7.BatchFormatters;
 using Serilog.Sinks.Site24x7.Private.Network;
 using Serilog.Sinks.Site24x7.Private.Sinks;
 using Serilog.Sinks.Site24x7.TextFormatters;
+using System;
+using System.Net.Http;
 
 namespace Serilog
 {
@@ -68,21 +67,50 @@ namespace Serilog
         public static LoggerConfiguration Site24x7Url(
             this LoggerSinkConfiguration sinkConfiguration,
             string requestUri,
-            int batchPostingLimit = 1,
-            int? queueLimit = null,
+            string minimumLogLevel = null,
             TimeSpan? period = null,
-            ITextFormatter textFormatter = null,
-            IBatchFormatter batchFormatter = null,
-            LogEventLevel restrictedToMinimumLevel = LevelAlias.Minimum,
-            IHttpClient httpClient = null)
+            int batchPostingLimit = 1,
+            int? queueLimit = null
+            )
+
         {
+            LogEventLevel restrictedToMinimumLevel = LogEventLevel.Verbose;
+            if (minimumLogLevel == null)
+            {
+                restrictedToMinimumLevel = LogEventLevel.Verbose;
+            }
+            else if (minimumLogLevel == "Debug")
+            {
+                restrictedToMinimumLevel = LogEventLevel.Debug;
+            }
+            else if (minimumLogLevel == "Information")
+            {
+                restrictedToMinimumLevel = LogEventLevel.Information;
+            }
+            else if (minimumLogLevel == "Warning")
+            {
+                restrictedToMinimumLevel = LogEventLevel.Warning;
+            }
+            else if (minimumLogLevel == "Error")
+            {
+                restrictedToMinimumLevel = LogEventLevel.Error;
+            }
+            else if (minimumLogLevel == "Fatal")
+            {
+                restrictedToMinimumLevel = LogEventLevel.Fatal;
+            }
+            else
+            {
+                restrictedToMinimumLevel = LogEventLevel.Verbose;
+            }
+
             if (sinkConfiguration == null) throw new ArgumentNullException(nameof(sinkConfiguration));
 
             // Default values
-            period =  period ?? TimeSpan.FromMilliseconds(0.0001);
-            textFormatter = textFormatter ?? new NormalRenderedTextFormatter();
-            batchFormatter = batchFormatter ?? new DefaultBatchFormatter();
-            httpClient = httpClient ?? new DefaultHttpClient();
+            period = period ?? TimeSpan.FromMilliseconds(0.01);
+            ITextFormatter textFormatter = new NormalRenderedTextFormatter();
+            IBatchFormatter batchFormatter = new DefaultBatchFormatter();
+            IHttpClient httpClient = new DefaultHttpClient();
 
             var sink = queueLimit != null
                 ? new HttpSink(requestUri, batchPostingLimit, queueLimit.Value, period.Value, textFormatter, batchFormatter, httpClient)
@@ -90,7 +118,6 @@ namespace Serilog
 
             return sinkConfiguration.Sink(sink, restrictedToMinimumLevel);
         }
-       
 
         /// <summary>
         /// Adds a durable sink that sends log events using HTTP POST over the network. A durable
@@ -149,6 +176,7 @@ namespace Serilog
         public static LoggerConfiguration Site24x7UsingTimeRolledBuffers(
             this LoggerSinkConfiguration sinkConfiguration,
             string requestUri,
+             string minimumLogLevel = null,
             string bufferPathFormat = "Buffer-{Date}.json",
             long? bufferFileSizeLimitBytes = null,
             bool bufferFileShared = false,
@@ -157,9 +185,39 @@ namespace Serilog
             TimeSpan? period = null,
             ITextFormatter textFormatter = null,
             IBatchFormatter batchFormatter = null,
-            LogEventLevel restrictedToMinimumLevel = LevelAlias.Minimum,
+
             IHttpClient httpClient = null)
         {
+            LogEventLevel restrictedToMinimumLevel = LogEventLevel.Verbose;
+            if (minimumLogLevel == null)
+            {
+                restrictedToMinimumLevel = LogEventLevel.Verbose;
+            }
+            else if (minimumLogLevel == "Debug")
+            {
+                restrictedToMinimumLevel = LogEventLevel.Debug;
+            }
+            else if (minimumLogLevel == "Information")
+            {
+                restrictedToMinimumLevel = LogEventLevel.Information;
+            }
+            else if (minimumLogLevel == "Warning")
+            {
+                restrictedToMinimumLevel = LogEventLevel.Warning;
+            }
+            else if (minimumLogLevel == "Error")
+            {
+                restrictedToMinimumLevel = LogEventLevel.Error;
+            }
+            else if (minimumLogLevel == "Fatal")
+            {
+                restrictedToMinimumLevel = LogEventLevel.Fatal;
+            }
+            else
+            {
+                restrictedToMinimumLevel = LogEventLevel.Verbose;
+            }
+
             if (sinkConfiguration == null) throw new ArgumentNullException(nameof(sinkConfiguration));
 
             // Default values
@@ -242,6 +300,7 @@ namespace Serilog
         public static LoggerConfiguration Site24x7UsingFileSizeRolledBuffers(
             this LoggerSinkConfiguration sinkConfiguration,
             string requestUri,
+            string minimumLogLevel = null,
             string bufferBaseFileName = "Buffer",
             long? bufferFileSizeLimitBytes = 1024 * 1024 * 1024,
             bool bufferFileShared = false,
@@ -250,9 +309,39 @@ namespace Serilog
             TimeSpan? period = null,
             ITextFormatter textFormatter = null,
             IBatchFormatter batchFormatter = null,
-            LogEventLevel restrictedToMinimumLevel = LevelAlias.Minimum,
+
             IHttpClient httpClient = null)
         {
+            LogEventLevel restrictedToMinimumLevel = LogEventLevel.Verbose;
+            if (minimumLogLevel == null)
+            {
+                restrictedToMinimumLevel = LogEventLevel.Verbose;
+            }
+            else if (minimumLogLevel == "Debug")
+            {
+                restrictedToMinimumLevel = LogEventLevel.Debug;
+            }
+            else if (minimumLogLevel == "Information")
+            {
+                restrictedToMinimumLevel = LogEventLevel.Information;
+            }
+            else if (minimumLogLevel == "Warning")
+            {
+                restrictedToMinimumLevel = LogEventLevel.Warning;
+            }
+            else if (minimumLogLevel == "Error")
+            {
+                restrictedToMinimumLevel = LogEventLevel.Error;
+            }
+            else if (minimumLogLevel == "Fatal")
+            {
+                restrictedToMinimumLevel = LogEventLevel.Fatal;
+            }
+            else
+            {
+                restrictedToMinimumLevel = LogEventLevel.Verbose;
+            }
+
             if (sinkConfiguration == null) throw new ArgumentNullException(nameof(sinkConfiguration));
 
             // Default values
