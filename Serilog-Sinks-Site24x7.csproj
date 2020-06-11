@@ -7,7 +7,7 @@
     <Description>Serilog Sink For Site24x7</Description>
     <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
     <PackageTags>Serilog, Sink, Site24x7</PackageTags>
-    <Version>1.0.8</Version>
+    <Version>1.0.9</Version>
     <RepositoryUrl>https://github.com/davouchi/serilog-sinks-site24x7/tree/master/src/serilog-sinks-site24x7</RepositoryUrl>
     <Product>Serilog.Sinks.Site24x7</Product>
     <PackageId>Serilog.Sinks.Site24x7</PackageId>
