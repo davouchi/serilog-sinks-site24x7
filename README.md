@@ -12,7 +12,7 @@
 ```csharp
 ILogger log = new LoggerConfiguration()
   .MinimumLevel.Verbose()
-  .WriteTo.Site24x7Url("http://www.logc.site24x7.com/event/receiver?token=[YOUR_TOKEN]")
+  .WriteTo.Site24x7Url("http://www.logc.site24x7.com/event/receiver?token=[YOUR_TOKEN]", "Debug")
   .CreateLogger();
 ```
 Or Use the namespace ```[Serilog.Settings.Configuration]``` and update your appsettings.json
@@ -26,7 +26,8 @@ Or Use the namespace ```[Serilog.Settings.Configuration]``` and update your apps
       {
         "Name": "Site24x7Url",
         "Args": {
-          "requestUri": "http://www.logc.site24x7.com/event/receiver?token=[YOUR_TOKEN]"
+          "requestUri": "http://www.logc.site24x7.com/event/receiver?token=[YOUR_TOKEN]",
+          "minimumLogLevel":"Debug"
         }
       }
     ]
@@ -35,7 +36,7 @@ Or Use the namespace ```[Serilog.Settings.Configuration]``` and update your apps
 ```
 ## Usage
 
-The sink is a single line log event post using this site24x7 log pattern
+This sink is a single line log event post using this site24x7 log pattern
 ```
 json  $Timestamp:date:MM/dd/yyyy HH:mm:ss.SSS$ $Environment$ $Level$ $RequestPath$$RenderedMessage$$SourceContext$ $ActionName$ $ActionId$  $MachineName$ $ThreadId:number$ $TraceId$ $ProcessId:number$ $SpanId$ $ParentId$ $RequestId$
 ```
